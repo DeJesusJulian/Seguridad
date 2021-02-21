@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>Hola AU</h1>
+	<table>
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>Titulo</th>
+				<th>Descripcion</th>
+				<th>Cliente</th>
+				<th></th>
+				<th>Email</th>
+				<th>Telefono</th>
+				<th>Fecha Inicio</th>
+				<th>Fecha Fin</th>
+				<th>Salon</th>
+				<th>Acciones</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="item, iStat : ${listaTL}">
+				<td th:text="${iStat.count}"></td>
+				<td th:text="${item.titulo}"></td>
+				<td th:text="${item.descripcion}"></td>
+				<td th:text="${item.nombreCliente}"></td>
+				<td th:text="${item.apellidoCliente}"></td>
+				<td th:text="${item.emailCliente}"></td>
+				<td th:text="${item.telefono}"></td>
+				<td th:text="${item.fechaInicio}"></td>
+				<td th:text="${item.fechaFin}"></td>
+				<td th:text="${item.lugar}"></td>
+				<td>
+					<a th:href="@{'/evento-delete/'+${item.idEvento}}"> Eliminar</a> 
+					<a th:href="@{'/evento-update/'+${item.idEvento}}"> Editar</a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<br />
+	<form th:action="@{/evento-create}" method="POST" th:object="${evento}"> 
+		<input type="text" th:field="*{idEvento}">
+		<br /> 
+		<label>Titulo</label>
+		<input type="text" th:field="*{titulo}"> 
+		<br/>
+		<label>Descripcion</label>
+		<input type="text" th:field="*{descripcion}">
+		<br/>
+		<label>Nombre(s) del cliente</label> 
+		<input type="text" th:field="*{nombreCliente}">
+		<br/>
+		<label>Apellido(s) del cliente</label> 
+		<input type="text" th:field="*{apellidoCliente}">
+		<br/>
+		<label>Email del cliente</label> 
+		<input type="email" th:field="*{emailCliente}">
+		<br/>
+		<label>Telefono del cliente</label> 
+		<input type="text" th:field="*{telefono}">
+		<br/>
+		<label>Fecha inicio</label> 
+		<input type="date" th:field="*{fechaInicio}">
+		<br/>
+		<label>Fecha Fin</label> 
+		<input type="date" th:field="*{fechaFin}">
+		<br/>
+		<label>Salon</label>
+		<select th:field="*{lugar}">
+  			<option value="1">Value 1</option>
+  			<option value="2">Value 2</option>
+  			<option value="3">Value 3</option>
+		</select>
+		<br /> 
+		<button type="submit">Registrar</button>
+	</form>
+</body>
+</html>
